@@ -3,28 +3,35 @@
 import { useState } from "react";
 import Aurora from "@/components/ui/Aurora/Aurora";
 import Navbar from "@/components/Navbar";
-import GradientText from "../components/ui/GradientText/GradientText";
-import Orb from "../components/ui/Orb/Orb";
+import GradientText from "@/components/ui/GradientText/GradientText";
+import Orb from "@/components/ui/Orb/Orb";
+import ClickSpark from "@/components/ui/ClickSpark/ClickSpark";
 
-import ClickSpark from "../components/ui/ClickSpark/ClickSpark";
-
-export default function Home() {
-  const [url, setUrl] = useState("");
+export default function Mp4ToMp3() {
+  const [file, setFile] = useState<File | null>(null);
   const [message, setMessage] = useState("");
 
-  const handleDownload = async () => {
-    setMessage("Extracting...");
-    const res = await fetch("/api/download_youtube", {
+  const handleConvert = async () => {
+    if (!file) {
+      setMessage("Please select an MP4 file.");
+      return;
+    }
+
+    setMessage("Converting...");
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await fetch("/api/convert_mp4_to_mp3", {
       method: "POST",
-      body: JSON.stringify({ url }),
-      headers: { "Content-Type": "application/json" },
+      body: formData,
     });
 
     const data = await res.json();
     if (data.success) {
-      setMessage("Download complete!");
+      setMessage("Conversion complete! Download your MP3 file.");
     } else {
-      setMessage("Error downloading video.");
+      setMessage("Error converting file.");
     }
   };
 
@@ -41,10 +48,7 @@ export default function Home() {
 
         {/* Aurora Background */}
         <div className="absolute inset-0 -z-10 pointer-events-none">
-          <Aurora
-            colorStops={["#e392fe", "#00c7fc", "#ff6251"]}
-            amplitude={0.75}
-          />
+          <Aurora colorStops={["#e392fe", "#00c7fc", "#ff6251"]} amplitude={0.75} />
         </div>
 
         {/* Main Content */}
@@ -55,7 +59,7 @@ export default function Home() {
             showBorder={false}
             className="text-6xl font-extrabold"
           >
-            TubeXtract
+            MP4 to MP3 Converter
           </GradientText>
 
           {/* Orb Positioned Between Title and Input */}
@@ -63,25 +67,29 @@ export default function Home() {
             <Orb />
           </div>
 
+          {/* Custom File Upload */}
           <div className="flex flex-col items-center w-full max-w-lg">
+            <label
+              htmlFor="file-upload"
+              className="w-full px-6 py-4 bg-white/10 backdrop-blur-md text-white text-lg rounded-lg border border-white/20 cursor-pointer flex items-center justify-center hover:bg-white/20 transition duration-300"
+            >
+              {file ? file.name : "Choose MP4 File"}
+            </label>
             <input
-              type="text"
-              placeholder="Enter YouTube URL"
-              className="w-full p-4 text-white text-xl rounded-lg 
-             bg-white/10 backdrop-blur-lg 
-             border border-white/20 focus:outline-none"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
+              id="file-upload"
+              type="file"
+              accept="video/mp4"
+              className="hidden"
+              onChange={(e) => setFile(e.target.files?.[0] || null)}
             />
 
-            {/* Wrapper for Extract Button */}
+            {/* Convert Button */}
             <div className="relative mt-8 w-full flex justify-center">
-              {/* Extract Button */}
               <button
                 className="relative px-10 py-4 text-xl font-bold bg-gray-700 rounded-lg hover:bg-gray-600 transition duration-300"
-                onClick={handleDownload}
+                onClick={handleConvert}
               >
-                Extract
+                Convert
               </button>
             </div>
           </div>

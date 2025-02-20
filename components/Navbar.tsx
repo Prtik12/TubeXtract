@@ -19,13 +19,13 @@ export default function Navbar() {
 
           {/* Centered Navigation Links */}
           <div className="hidden md:flex flex-1 justify-center space-x-8">
-            <NavLink href="/">YouTube Downloader</NavLink>
+            <NavLink href="/">Downloader</NavLink>
             <NavLink href="/mp4-to-mp3">MP4 to MP3</NavLink>
           </div>
 
           {/* GitHub & Twitter Buttons */}
           <div className="hidden md:flex space-x-4">
-            <StyledButton href="https://github.com/Prtik12">
+            <StyledButton href="https://github.com/Prtik12/TubeXtract">
               <Github size={20} className="w-5 h-5" />
               <span>GitHub</span>
             </StyledButton>
