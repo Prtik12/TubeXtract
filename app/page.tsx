@@ -55,7 +55,7 @@ export default function Home() {
           showBorder={false}
           className="text-6xl font-extrabold"
         >
-          YouTube Downloader
+          TubeXtract
         </GradientText>
 
         {/* Orb Positioned Between Title and Input */}

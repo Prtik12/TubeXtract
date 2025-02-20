@@ -19,7 +19,7 @@ export default function Navbar() {
 
           {/* Centered Navigation Links */}
           <div className="hidden md:flex flex-1 justify-center space-x-8">
-            <NavLink href="/youtube-downloader">YouTube Downloader</NavLink>
+            <NavLink href="/">YouTube Downloader</NavLink>
             <NavLink href="/mp4-to-mp3">MP4 to MP3</NavLink>
           </div>
 
@@ -54,7 +54,7 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden bg-gray-900/80 border-t border-gray-700 flex flex-col items-center">
-          <NavLink href="/youtube-downloader" onClick={() => setIsOpen(false)}>
+          <NavLink href="/" onClick={() => setIsOpen(false)}>
             YouTube Downloader
           </NavLink>
           <NavLink href="/mp4-to-mp3" onClick={() => setIsOpen(false)}>
