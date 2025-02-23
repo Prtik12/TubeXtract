@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import GradientText from "../components/ui/GradientText/GradientText";
 import Orb from "../components/ui/Orb/Orb";
 import ClickSpark from "../components/ui/ClickSpark/ClickSpark";
-import { VanishingInput } from "@/components/Vanishing-Input"; // Ensure correct path
+import { VanishingInput } from "@/components/Vanishing-Input"; 
 
 export default function Home() {
   const [url, setUrl] = useState("");
@@ -64,7 +64,7 @@ export default function Home() {
           </div>
 
 {/* Input Section */}
-<div className="w-full max-w-lg flex items-center text-center justify-items-stretch">
+<div className="w-full max-w-lg flex items-center justify-center">
   <VanishingInput
     placeholders={[
       "Enter YouTube Video URL",
@@ -73,7 +73,7 @@ export default function Home() {
       "Enter Twitter Video URL",
     ]}
     onChange={(e) => setUrl(e.target.value)}
-    className="w-full h-14 px-0 text-center leading-none rounded-lg bg-white/10 backdrop-blur-lg border border-white/20 focus:outline-none"
+    className="w-full h-14 pl-2 rounded-lg bg-white/10 backdrop-blur-lg border border-white/20 focus:outline-none text-white placeholder:text-center"
     type="text"
     name="url"
   />
