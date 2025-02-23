@@ -15,6 +15,23 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "TubeXtract",
   description: "Toolkit for extracting",
+  openGraph: {
+    title: "TubeXtract",
+    description: "Toolkit for extracting",
+    url:"",
+    images: [
+      {
+        url: "/banner.png",
+        width: 1200,
+        height: 630,
+        alt: "TubeXtract",
+      },
+    ],
+    type: "website",
+  },
+  icons: {
+    icon: { url: "/package-2.ico", type: "image/svg-xml" },
+  }
 };
 
 export default function RootLayout({
