@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "TubeXtract",
-  description: "Toolkit for extracting audio from YouTube videos",
+  description: "Toolkit for extracting",
 };
 
 export default function RootLayout({

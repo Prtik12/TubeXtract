@@ -55,7 +55,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="md:hidden fixed top-16 left-0 w-full bg-gray-900 backdrop-blur-lg border-t border-gray-700 flex flex-col items-center py-4 space-y-4"
+            className="mt-4 px-6 py-3 bg-gray-900 backdrop-blur-lg border-t border-gray-700 text-white rounded-lg hover:bg-gray-700 transition duration-300"
           >
             <NavLink href="/" onClick={() => setIsOpen(false)}>
               YouTube Downloader

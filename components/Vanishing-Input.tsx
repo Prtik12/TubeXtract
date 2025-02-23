@@ -2,10 +2,11 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { cn } from "@/lib/utils"; // Ensure you have this utility or remove it.
+import { cn } from "@/lib/utils"; 
 
 export function VanishingInput({
   placeholders,
+  onChange, 
   onSubmit,
   required,
   className,
@@ -13,7 +14,7 @@ export function VanishingInput({
   name = "input",
 }: {
   placeholders: string[];
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; 
   onSubmit?: React.FormEventHandler<HTMLFormElement>;
   required?: boolean;
   className?: string;
@@ -38,7 +39,7 @@ export function VanishingInput({
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && onSubmit) {
-      e.preventDefault(); // Prevent form submission when pressing Enter
+      e.preventDefault(); 
       onSubmit(new Event("submit") as unknown as React.FormEvent<HTMLFormElement>);
     }
   };
@@ -54,8 +55,6 @@ export function VanishingInput({
       <input
         title="input"
         placeholder=""
-        onChange={(e) => setValue(e.target.value)}
-        onKeyDown={handleKeyDown}
         ref={inputRef}
         value={value}
         type={type}
@@ -64,6 +63,11 @@ export function VanishingInput({
         className={cn(
           "w-full relative text-sm sm:text-base z-50 border-none dark:text-white bg-transparent text-white h-full rounded-full focus:outline-none focus:ring-0 pl-4 sm:pl-10 pr-20"
         )}
+        onKeyDown={handleKeyDown}
+        onChange={(e) => {
+          setValue(e.target.value);
+          onChange?.(e); 
+        }}
       />
 
       <div className="absolute inset-0 flex items-center rounded-full pointer-events-none">
