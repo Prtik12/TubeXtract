@@ -82,7 +82,7 @@ export default function Home() {
 
           <div className="w-full max-w-lg flex items-center justify-center">
             <VanishingInput
-              placeholders={["Enter YouTube Video URL", "Paste the link here", "Get your video instantly"]}
+              placeholders={["Enter the Url", "Paste the link here", "Get your video instantly"]}
               onChange={(e) => setUrl(e.target.value)}
               className="w-full px-1 py-4 bg-white/10 backdrop-blur-md text-white text-lg rounded-lg border border-white/20 cursor-pointer flex items-center justify-center hover:bg-white/20 transition duration-300"
               required
