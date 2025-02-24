@@ -10,8 +10,8 @@ interface Media {
 }
 
 interface ApiResponse {
-  title: string; 
-  thumbnail: string; 
+  title: string;
+  thumbnail: string;
   medias?: Media[];
 }
 
@@ -63,7 +63,7 @@ export async function POST(req: Request) {
       .sort((a, b) => {
         const qualityA = parseInt(a.quality?.replace("p", "") ?? "0", 10);
         const qualityB = parseInt(b.quality?.replace("p", "") ?? "0", 10);
-        return qualityB - qualityA; 
+        return qualityB - qualityA;
       })[0];
 
     if (!videoMedia) {
@@ -78,7 +78,16 @@ export async function POST(req: Request) {
       thumbnail: data.thumbnail,
       videoUrl: videoMedia.url,
     });
-  } catch (error) {
+  } catch (error: unknown) {
+    console.error("API Error:", error);
+
+    if (error instanceof SyntaxError) {
+      return NextResponse.json(
+        { error: "Invalid JSON response from API" },
+        { status: 502 }
+      );
+    }
+
     return NextResponse.json(
       { error: "Failed to process request", details: (error as Error).message },
       { status: 500 }
