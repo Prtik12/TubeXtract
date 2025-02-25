@@ -8,6 +8,7 @@ import GradientText from "@/components/ui/GradientText/GradientText";
 import Orb from "@/components/ui/Orb/Orb";
 import ClickSpark from "@/components/ui/ClickSpark/ClickSpark";
 import { VanishingInput } from "@/components/Vanishing-Input";
+import HyperspeedLoader from "@/components/Loader";
 
 interface VideoResponse {
   error?: string;
@@ -59,6 +60,9 @@ export default function Home() {
       sparkCount={8}
       duration={400}
     >
+      {/* Loader */}
+      <HyperspeedLoader />
+
       <div className="relative min-h-screen w-full overflow-hidden font-sans text-white">
         <Navbar />
 

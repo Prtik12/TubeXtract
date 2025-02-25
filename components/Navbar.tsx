@@ -12,19 +12,13 @@ export default function Navbar() {
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-transparent backdrop-blur-md z-50">
+    <nav className="fixed top-0 left-0 w-full bg-transparent backdrop-blur-md z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="text-white text-2xl font-extrabold">
             TubeXtract
           </Link>
-
-          {/* Centered Navigation Links (Hidden on Mobile) */}
-          <div className="hidden md:flex flex-1 justify-center space-x-8">
-            <NavLink href="/">Downloader</NavLink>
-            <NavLink href="/mp4-to-mp3">MP4 to MP3</NavLink>
-          </div>
 
           {/* GitHub & Twitter (Hidden on Mobile) */}
           <div className="hidden md:flex space-x-4">
@@ -60,15 +54,8 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="absolute top-16 left-0 w-full bg-gray-900/90 backdrop-blur-lg border-t border-gray-700 text-white md:hidden flex flex-col items-center py-6 space-y-6"
+            className="absolute top-16 left-0 w-full backdrop-blur-lg text-white md:hidden flex flex-col items-end px-3 py-3 space-y-6"
           >
-            <NavLink href="/" onClick={toggleMenu}>
-              Downloader
-            </NavLink>
-            <NavLink href="/mp4-to-mp3" onClick={toggleMenu}>
-              MP4 to MP3
-            </NavLink>
-
             {/* GitHub & Twitter Buttons (For Mobile) */}
             <div className="flex space-x-4">
               <StyledButton href="https://github.com/Prtik12">
@@ -98,18 +85,5 @@ function StyledButton({ href, children }: { href: string; children: React.ReactN
         {children}
       </Link>
     </Button>
-  );
-}
-
-// 🔹 Reusable Link Component
-function NavLink({ href, children, onClick }: { href: string; children: React.ReactNode; onClick?: () => void }) {
-  return (
-    <Link
-      href={href}
-      onClick={onClick}
-      className="block text-white text-lg font-medium transition duration-300 hover:text-gray-400"
-    >
-      {children}
-    </Link>
   );
 }
