@@ -100,20 +100,16 @@ struct ColorStop {
 }
 
 void main() {
-    // Compute UV coordinates from the fragment coordinate and resolution.
     vec2 uv = gl_FragCoord.xy / uResolution;
 
-    // Build our three color stops from uniform array uColorStops.
     ColorStop colors[3];
     colors[0] = ColorStop(uColorStops[0], 0.0);
     colors[1] = ColorStop(uColorStops[1], 0.5);
     colors[2] = ColorStop(uColorStops[2], 1.0);
 
-    // Interpolate color along uv.x.
     vec3 rampColor;
     COLOR_RAMP(colors, uv.x, rampColor);
 
-    // Noise-based "height," scaled by amplitude.
     float height = snoise(vec2(uv.x * 2.0 + uTime * 0.1, uTime * 0.25))
                    * 0.5 * uAmplitude;
     height = exp(height);
@@ -141,34 +137,12 @@ export default function Aurora(props: AuroraProps) {
     const gl = renderer.gl;
     gl.clearColor(1, 1, 1, 1);
 
-    // Declare program variable so it's available in the resize callback.
-    let program: Program;
-
-    function resize() {
-      if (!ctn) return;
-      const width = ctn.offsetWidth;
-      const height = ctn.offsetHeight;
-      renderer.setSize(width, height);
-      if (program) {
-        program.uniforms.uResolution.value = [width, height];
-      }
-    }
-    window.addEventListener("resize", resize);
-
-    // Create a full-screen triangle.
-    const geometry = new Triangle(gl);
-    // Remove the UV attribute since we now compute UVs in the fragment shader.
-    if (geometry.attributes.uv) {
-      delete geometry.attributes.uv;
-    }
-
     const colorStopsArray = colorStops.map((hex) => {
       const c = new Color(hex);
       return [c.r, c.g, c.b] as [number, number, number];
     });
 
-    // Initialize the shader program with the new uResolution uniform.
-    program = new Program(gl, {
+    const program = new Program(gl, {
       vertex: VERT,
       fragment: FRAG,
       uniforms: {
@@ -178,6 +152,20 @@ export default function Aurora(props: AuroraProps) {
         uResolution: { value: [ctn.offsetWidth, ctn.offsetHeight] },
       },
     });
+
+    function resize() {
+      if (!ctn) return;
+      const width = ctn.offsetWidth;
+      const height = ctn.offsetHeight;
+      renderer.setSize(width, height);
+      program.uniforms.uResolution.value = [width, height];
+    }
+    window.addEventListener("resize", resize);
+
+    const geometry = new Triangle(gl);
+    if (geometry.attributes.uv) {
+      delete geometry.attributes.uv;
+    }
 
     const mesh = new Mesh(gl, { geometry, program });
     ctn.appendChild(gl.canvas);

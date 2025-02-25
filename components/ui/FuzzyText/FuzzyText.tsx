@@ -11,6 +11,10 @@ interface FuzzyTextProps {
   hoverIntensity?: number;
 }
 
+interface CustomCanvasElement extends HTMLCanvasElement {
+  cleanupFuzzyText?: () => void;
+}
+
 const FuzzyText: React.FC<FuzzyTextProps> = ({
   children,
   fontSize = "clamp(2rem, 8vw, 8rem)",
@@ -26,7 +30,7 @@ const FuzzyText: React.FC<FuzzyTextProps> = ({
   useEffect(() => {
     let animationFrameId: number;
     let isCancelled = false;
-    const canvas = canvasRef.current;
+    const canvas = canvasRef.current as CustomCanvasElement | null;
     if (!canvas) return;
 
     const init = async () => {
@@ -108,7 +112,7 @@ const FuzzyText: React.FC<FuzzyTextProps> = ({
           -fuzzRange,
           -fuzzRange,
           offscreenWidth + 2 * fuzzRange,
-          tightHeight + 2 * fuzzRange,
+          tightHeight + 2 * fuzzRange
         );
         const intensity = isHovering ? hoverIntensity : baseIntensity;
         for (let j = 0; j < tightHeight; j++) {
@@ -122,7 +126,7 @@ const FuzzyText: React.FC<FuzzyTextProps> = ({
             dx,
             j,
             offscreenWidth,
-            1,
+            1
           );
         }
         animationFrameId = window.requestAnimationFrame(run);
@@ -181,7 +185,7 @@ const FuzzyText: React.FC<FuzzyTextProps> = ({
         }
       };
 
-      (canvas as any).cleanupFuzzyText = cleanup;
+      canvas.cleanupFuzzyText = cleanup;
     };
 
     init();
@@ -189,8 +193,8 @@ const FuzzyText: React.FC<FuzzyTextProps> = ({
     return () => {
       isCancelled = true;
       window.cancelAnimationFrame(animationFrameId);
-      if (canvas && (canvas as any).cleanupFuzzyText) {
-        (canvas as any).cleanupFuzzyText();
+      if (canvas?.cleanupFuzzyText) {
+        canvas.cleanupFuzzyText();
       }
     };
   }, [
