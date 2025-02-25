@@ -25,8 +25,6 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: "Invalid URL format" }, { status: 400 });
     }
 
-    console.log("Fetching video from:", videoUrl);
-
     const response = await fetch(videoUrl, { method: "GET" });
 
     if (!response.ok) {
