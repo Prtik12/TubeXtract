@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   icons: {
-    icon: { url: "/package-2.ico", type: "image/svg-xml" },
+    icon: { url: "/package-2.ico", type: "image/svg+xml" },
   }
 };
 
