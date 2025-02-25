@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "TubeXtract",
     description: "Toolkit for extracting",
-    url:"",
+    url:"tube-xtract.vercel.app",
     images: [
       {
         url: "@/public/banner.png",
