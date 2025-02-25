@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
     },
   },
   // Add metadataBase to resolve the warning
-  // metadataBase: new URL("http://localhost:3000"),
+  metadataBase: new URL("https://tube-xtract-e465.vercel.app"),
 };
 
 export default nextConfig;
