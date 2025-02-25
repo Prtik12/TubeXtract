@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import os from "os";
 import { spawn } from "child_process";
 import { randomUUID } from "crypto";
 
 export async function POST(req: NextRequest) {
   try {
-
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
 
@@ -15,17 +15,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
     }
 
-    // Ensure directory exists
-    const tempDir = path.join(process.cwd(), "temp");
-    if (!fs.existsSync(tempDir)) {
-      fs.mkdirSync(tempDir, { recursive: true });
-    }
+    // Use OS temp directory instead of process.cwd()
+    const tempDir = os.tmpdir();
 
     // Generate unique filenames
     const inputFilePath = path.join(tempDir, `${randomUUID()}.mp4`);
     const outputFilePath = path.join(tempDir, `${randomUUID()}.mp3`);
 
-    // Save file
+    // Save file to temp directory
     const fileBuffer = Buffer.from(await file.arrayBuffer());
     fs.writeFileSync(inputFilePath, fileBuffer);
 
@@ -35,10 +32,13 @@ export async function POST(req: NextRequest) {
     }
 
     // Check if FFmpeg is installed
-    const ffmpegPath = "ffmpeg"; // Adjust if needed
-    const ffmpeg = spawn(ffmpegPath, ["-i", inputFilePath, "-b:a", "192k", "-y", outputFilePath]);
+    const ffmpegPath = "ffmpeg"; // Ensure ffmpeg is installed and accessible
 
     return new Promise<NextResponse>((resolve) => {
+      const ffmpeg = spawn(ffmpegPath, [
+        "-i", inputFilePath, "-b:a", "192k", "-y", outputFilePath
+      ]);
+
       ffmpeg.on("close", (code) => {
         if (code !== 0) {
           return resolve(
@@ -48,6 +48,8 @@ export async function POST(req: NextRequest) {
 
         // Read the converted file
         const mp3Data = fs.readFileSync(outputFilePath);
+
+        // Cleanup temporary files
         fs.unlinkSync(inputFilePath);
         fs.unlinkSync(outputFilePath);
 
@@ -67,11 +69,12 @@ export async function POST(req: NextRequest) {
         );
       });
     });
+
   } catch (error: unknown) {
     console.error("Unexpected error:", error);
-    if (error instanceof Error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
-    return NextResponse.json({ error: "An unknown error occurred" }, { status: 500 });
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "An unknown error occurred" },
+      { status: 500 }
+    );
   }
 }
