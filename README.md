@@ -2,6 +2,9 @@
 
 **TubeXtract** is a simple and efficient tool for extracting and downloading videos. Built with **Next.js, TypeScript, and Tailwind CSS**, it provides a smooth and modern user experience.  
 
+<img width="1917" alt="banner" src="https://github.com/user-attachments/assets/5735e940-e482-409c-b80b-ad6862effb82" />
+
+
 🔗 **Live Demo:** [tube-xtract.vercel.app](https://tube-xtract.vercel.app)  
 
 ---
