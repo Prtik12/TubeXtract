@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎬 TubeXtract  
 
-## Getting Started
+**TubeXtract** is a simple and efficient tool for extracting and downloading videos. Built with **Next.js, TypeScript, and Tailwind CSS**, it provides a smooth and modern user experience.  
 
-First, run the development server:
+🔗 **Live Demo:** [tube-xtract.vercel.app](https://tube-xtract.vercel.app)  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 🚀 Features  
+✅ Extract and download videos effortlessly  
+✅ Fast and user-friendly UI  
+✅ Mobile-responsive design  
+✅ Secure API with rate limiting  
+✅ Deployed with Vercel for seamless performance  
+
+---
+
+## 🛠️ Tech Stack  
+- **Frontend:** Next.js, TypeScript, Tailwind CSS  
+- **Backend:** API Routes with Rate Limiting  
+- **Deployment:** Vercel  
+
+---
+
+## 📦 Installation  
+
+1. **Clone the repository**  
+```sh
+git clone https://github.com/yourusername/tubextract.git
+cd tubextract
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Install dependencies**  
+```sh
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Run the development server**  
+```sh
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. **Open in your browser**  
+The app will be available at [http://localhost:3000](http://localhost:3000).  
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📌 Usage  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Paste a video URL**  
+2. **Click "Extract"**  
+3. **Download the extracted video**  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🚀 Deployment  
+The project is deployed using **Vercel** for production. To deploy your own instance:  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Fork the repository and push your changes.  
+2. Connect your repository to [Vercel](https://vercel.com/).  
+3. Deploy with a single click on Vercel.  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🤝 Contributing  
+Contributions are welcome! Feel free to submit a pull request.  
+
+---
+
+## ⭐ Support  
+If you like this project, consider giving it a ⭐ on GitHub!  
+
