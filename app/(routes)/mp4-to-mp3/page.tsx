@@ -22,16 +22,32 @@ export default function Mp4ToMp3() {
     const formData = new FormData();
     formData.append("file", file);
 
-    const res = await fetch("/api/convert_mp4_to_mp3", {
-      method: "POST",
-      body: formData,
-    });
+    try {
+      const res = await fetch("/api/convert_mp4_to_mp3", {
+        method: "POST",
+        body: formData,
+      });
 
-    const data = await res.json();
-    if (data.success) {
-      setMessage("Conversion complete! Download your MP3 file.");
-    } else {
-      setMessage("Error converting file.");
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || "Conversion failed.");
+      }
+
+      // Convert response to a blob
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+
+      // Create a download link and trigger download
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "converted.mp3";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      setMessage("Conversion complete! Your MP3 file is downloaded.");
+    } catch (error) {
+      setMessage(`Error: ${error instanceof Error ? error.message : "Unknown error"}`);
     }
   };
 
