@@ -68,7 +68,7 @@ export default function Mp4ToMp3() {
         </div>
 
         {/* Main Content */}
-        <div className="relative flex flex-col items-center justify-center min-h-screen text-center p-6">
+        <div className="relative flex flex-col items-center justify-center min-h-screen text-center pt-20 p-6">
           <GradientText
             colors={["#e392fe", "#00c7fc", "#e392fe", "#00c7fc", "#e392fe"]}
             animationSpeed={5}

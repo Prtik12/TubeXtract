@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Menu, X, Github, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,22 +9,24 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
+
   return (
     <nav className="fixed top-0 left-0 w-full bg-transparent backdrop-blur-md z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="text-white text-xl font-bold">
+          <Link href="/" className="text-white text-2xl font-extrabold">
             TubeXtract
           </Link>
 
-          {/* Centered Navigation Links */}
+          {/* Centered Navigation Links (Hidden on Mobile) */}
           <div className="hidden md:flex flex-1 justify-center space-x-8">
             <NavLink href="/">Downloader</NavLink>
             <NavLink href="/mp4-to-mp3">MP4 to MP3</NavLink>
           </div>
 
-          {/* GitHub & Twitter Buttons */}
+          {/* GitHub & Twitter (Hidden on Mobile) */}
           <div className="hidden md:flex space-x-4">
             <StyledButton href="https://github.com/Prtik12/TubeXtract">
               <Github size={20} className="w-5 h-5" />
@@ -37,10 +39,11 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex justify-end flex-1">
+          <div className="md:hidden flex items-center">
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={toggleMenu}
               className="text-white focus:outline-none transition duration-300 hover:text-gray-400"
+              aria-label="Toggle menu"
             >
               {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
@@ -48,24 +51,26 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu with Animation */}
+      {/* Mobile Menu with Smooth Animation */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            key="mobile-menu"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="mt-4 px-6 py-3 bg-gray-900 backdrop-blur-lg border-t border-gray-700 text-white rounded-lg hover:bg-gray-700 transition duration-300"
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="absolute top-16 left-0 w-full bg-gray-900/90 backdrop-blur-lg border-t border-gray-700 text-white md:hidden flex flex-col items-center py-6 space-y-6"
           >
-            <NavLink href="/" onClick={() => setIsOpen(false)}>
-              YouTube Downloader
+            <NavLink href="/" onClick={toggleMenu}>
+              Downloader
             </NavLink>
-            <NavLink href="/mp4-to-mp3" onClick={() => setIsOpen(false)}>
+            <NavLink href="/mp4-to-mp3" onClick={toggleMenu}>
               MP4 to MP3
             </NavLink>
 
-            {/* Mobile GitHub & Twitter Buttons */}
-            <div className="flex space-x-4 mt-4">
+            {/* GitHub & Twitter Buttons (For Mobile) */}
+            <div className="flex space-x-4">
               <StyledButton href="https://github.com/Prtik12">
                 <Github size={20} className="w-5 h-5" />
                 <span>GitHub</span>
@@ -102,7 +107,7 @@ function NavLink({ href, children, onClick }: { href: string; children: React.Re
     <Link
       href={href}
       onClick={onClick}
-      className="block px-6 py-3 text-white text-lg transition duration-300 hover:text-gray-400"
+      className="block text-white text-lg font-medium transition duration-300 hover:text-gray-400"
     >
       {children}
     </Link>
