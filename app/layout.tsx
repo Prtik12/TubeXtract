@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     url:"tube-xtract.vercel.app",
     images: [
       {
-        url: "@/public/banner.png",
+        url: "https://tube-xtract.vercel.app/banner.png",  
         width: 1200,
         height: 630,
         alt: "TubeXtract",
