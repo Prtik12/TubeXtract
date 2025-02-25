@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     url:"",
     images: [
       {
-        url: "/banner.png",
+        url: "@/public/banner.png",
         width: 1200,
         height: 630,
         alt: "TubeXtract",
