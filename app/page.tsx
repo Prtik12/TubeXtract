@@ -92,8 +92,10 @@ export default function Home() {
               placeholders={[
                 "Enter the URL",
                 "Paste the link here",
+                "Enter the Instagram Reels Url",
                 "Get the highest quality available",
                 "Get your video instantly",
+                "Enter the Youtube Url",
               ]}
               onChange={(e) => setUrl(e.target.value)}
               className="w-full px-0 py-3 sm:py-4 bg-white/10 backdrop-blur-md text-white text-base sm:text-lg rounded-lg border border-white/20 cursor-pointer flex items-center justify-center hover:bg-white/20 transition duration-300 text-center placeholder:text-center"
