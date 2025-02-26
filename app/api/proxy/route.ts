@@ -22,7 +22,10 @@ export async function GET(req: Request) {
 
     // Strict URL validation to prevent bad requests
     if (!/^https?:\/\/[^\s/$.?#].[^\s]*$/.test(videoUrl)) {
-      return NextResponse.json({ error: "Invalid URL format" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid URL format" },
+        { status: 400 },
+      );
     }
 
     const response = await fetch(videoUrl, { method: "GET" });
@@ -30,11 +33,13 @@ export async function GET(req: Request) {
     if (!response.ok) {
       return NextResponse.json(
         { error: `Failed to fetch video: ${response.statusText}` },
-        { status: response.status }
+        { status: response.status },
       );
     }
 
-    const sanitizedFilename = title.replace(/[^\w\s-]/gi, "").replace(/\s+/g, "_");
+    const sanitizedFilename = title
+      .replace(/[^\w\s-]/gi, "")
+      .replace(/\s+/g, "_");
 
     return new Response(response.body, {
       headers: {
@@ -46,6 +51,9 @@ export async function GET(req: Request) {
     });
   } catch (error) {
     console.error("Proxy error:", error);
-    return NextResponse.json({ error: "Failed to fetch video" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch video" },
+      { status: 500 },
+    );
   }
 }

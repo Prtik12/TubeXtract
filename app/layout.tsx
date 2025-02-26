@@ -18,10 +18,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "TubeXtract",
     description: "Toolkit for extracting",
-    url:"tube-xtract.vercel.app",
+    url: "tube-xtract.vercel.app",
     images: [
       {
-        url: "https://tube-xtract.vercel.app/banner.png",  
+        url: "https://tube-xtract.vercel.app/banner.png",
         width: 1200,
         height: 630,
         alt: "TubeXtract",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: { url: "/package-2.ico", type: "image/svg+xml" },
-  }
+  },
 };
 
 export default function RootLayout({

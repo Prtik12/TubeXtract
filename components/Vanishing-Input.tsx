@@ -2,11 +2,11 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { cn } from "@/lib/utils"; 
+import { cn } from "@/lib/utils";
 
 export function VanishingInput({
   placeholders,
-  onChange, 
+  onChange,
   onSubmit,
   required,
   className,
@@ -14,7 +14,7 @@ export function VanishingInput({
   name = "input",
 }: {
   placeholders: string[];
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; 
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit?: React.FormEventHandler<HTMLFormElement>;
   required?: boolean;
   className?: string;
@@ -39,8 +39,10 @@ export function VanishingInput({
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && onSubmit) {
-      e.preventDefault(); 
-      onSubmit(new Event("submit") as unknown as React.FormEvent<HTMLFormElement>);
+      e.preventDefault();
+      onSubmit(
+        new Event("submit") as unknown as React.FormEvent<HTMLFormElement>,
+      );
     }
   };
 
@@ -48,7 +50,7 @@ export function VanishingInput({
     <form
       className={cn(
         "sm:w-96 relative max-w-xl mx-auto bg-zinc-800 h-12 rounded-full overflow-hidden shadow transition duration-200",
-        className
+        className,
       )}
       onSubmit={onSubmit}
     >
@@ -61,12 +63,12 @@ export function VanishingInput({
         name={name}
         required={required}
         className={cn(
-          "w-full relative text-sm sm:text-base z-50 border-none dark:text-white bg-transparent text-white h-full rounded-full focus:outline-none focus:ring-0 pl-4 sm:pl-10 pr-20"
+          "w-full relative text-sm sm:text-base z-50 border-none dark:text-white bg-transparent text-white h-full rounded-full focus:outline-none focus:ring-0 pl-4 sm:pl-10 pr-20",
         )}
         onKeyDown={handleKeyDown}
         onChange={(e) => {
           setValue(e.target.value);
-          onChange?.(e); 
+          onChange?.(e);
         }}
       />
 

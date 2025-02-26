@@ -67,15 +67,18 @@ export default function Home() {
         <Navbar />
 
         <div className="absolute inset-0 -z-10 pointer-events-none">
-          <Aurora colorStops={["#e392fe", "#00c7fc", "#ff6251"]} amplitude={0.75} />
+          <Aurora
+            colorStops={["#e392fe", "#00c7fc", "#ff6251"]}
+            amplitude={0.75}
+          />
         </div>
 
-        <div className="relative flex flex-col items-center justify-center min-h-screen text-center pt-20 px-6">
+        <div className="relative flex flex-col items-center justify-center min-h-screen text-center pt-20 px-4 sm:px-6">
           <GradientText
             colors={["#e392fe", "#00c7fc", "#e392fe", "#00c7fc", "#e392fe"]}
             animationSpeed={5}
             showBorder={false}
-            className="text-6xl font-extrabold"
+            className="text-5xl sm:text-6xl font-extrabold"
           >
             TubeXtract
           </GradientText>
@@ -84,28 +87,33 @@ export default function Home() {
             <Orb />
           </div>
 
-          <div className="w-full max-w-lg flex items-center justify-center">
+          <div className="w-full max-w-lg px-4 sm:px-6 flex items-center justify-center">
             <VanishingInput
-              placeholders={["Enter the Url",  "Paste the link here", "Get the highest quality available", "Get your video instantly"]}
+              placeholders={[
+                "Enter the URL",
+                "Paste the link here",
+                "Get the highest quality available",
+                "Get your video instantly",
+              ]}
               onChange={(e) => setUrl(e.target.value)}
-              className="w-full px-1 py-4 bg-white/10 backdrop-blur-md text-white text-lg rounded-lg border border-white/20 cursor-pointer flex items-center justify-center hover:bg-white/20 transition duration-300"
+              className="w-full px-0 py-3 sm:py-4 bg-white/10 backdrop-blur-md text-white text-base sm:text-lg rounded-lg border border-white/20 cursor-pointer flex items-center justify-center hover:bg-white/20 transition duration-300 text-center placeholder:text-center"
               required
             />
           </div>
 
           <div className="relative mt-8 w-full flex justify-center">
             <button
-              className="relative px-10 py-3 text-xl font-bold bg-gray-800 rounded-lg hover:bg-gray-700 hover:border-gray-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition-all duration-300 ease-in-out"
+              className="relative px-8 sm:px-10 py-3 text-lg sm:text-xl font-bold bg-gray-800 rounded-lg hover:bg-gray-700 hover:border-gray-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition-all duration-300 ease-in-out"
               onClick={handleDownload}
             >
               Extract
             </button>
           </div>
 
-          <p className="mt-6 text-xl font-medium">{message}</p>
+          <p className="mt-6 text-lg sm:text-xl font-medium">{message}</p>
 
           {videoData && videoData.videoUrl && (
-            <div className="mt-6 w-full max-w-lg flex flex-col items-center">
+            <div className="mt-6 w-full max-w-lg flex flex-col items-center pb-12">
               {videoData.thumbnail && (
                 <Image
                   src={videoData.thumbnail}
@@ -117,14 +125,14 @@ export default function Home() {
                 />
               )}
 
-              <h3 className="mt-4 text-2xl font-semibold">
+              <h3 className="mt-4 text-xl sm:text-2xl font-semibold">
                 {videoData.title || "Video Title"}
               </h3>
 
               <a
                 href={`/api/proxy?url=${encodeURIComponent(videoData.videoUrl)}&title=${encodeURIComponent(videoData.title || "video")}`}
                 download
-                className="mt-4 px-6 py-3 bg-gray-800 backdrop-blur-lg border-t border-gray-700 text-white rounded-lg hover:bg-gray-700 hover:border-gray-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition-all duration-300 ease-in-out"
+                className="mt-4 px-6 py-3 bg-gray-800 backdrop-blur-lg border-t border-gray-700 text-white rounded-lg hover:bg-gray-700 hover:border-gray-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition-all duration-300 ease-in-out pb-4"
               >
                 Download
               </a>

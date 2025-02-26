@@ -75,7 +75,13 @@ export default function Navbar() {
 }
 
 // 🔹 Reusable Styled Button Component
-function StyledButton({ href, children }: { href: string; children: React.ReactNode }) {
+function StyledButton({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
   return (
     <Button
       asChild

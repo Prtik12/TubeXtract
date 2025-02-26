@@ -43,20 +43,23 @@ export async function POST(req: Request) {
     if (!apiKey || !apiHost) {
       return NextResponse.json(
         { error: "Missing API credentials" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
     // Fetch video details from API
-    const response = await fetch("https://snap-video3.p.rapidapi.com/download", {
-      method: "POST",
-      headers: {
-        "x-rapidapi-key": apiKey,
-        "x-rapidapi-host": apiHost,
-        "Content-Type": "application/x-www-form-urlencoded",
+    const response = await fetch(
+      "https://snap-video3.p.rapidapi.com/download",
+      {
+        method: "POST",
+        headers: {
+          "x-rapidapi-key": apiKey,
+          "x-rapidapi-host": apiHost,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({ url: cleanedUrl }),
       },
-      body: new URLSearchParams({ url: cleanedUrl }),
-    });
+    );
 
     const data: ApiResponse = await response.json();
     console.log("Raw API Response:", JSON.stringify(data, null, 2));
@@ -64,12 +67,19 @@ export async function POST(req: Request) {
     if (!response.ok) {
       return NextResponse.json(
         { error: `API request failed: ${response.statusText}` },
-        { status: response.status }
+        { status: response.status },
       );
     }
 
-    if (!data.medias || !Array.isArray(data.medias) || data.medias.length === 0) {
-      return NextResponse.json({ error: "No media found in API response" }, { status: 404 });
+    if (
+      !data.medias ||
+      !Array.isArray(data.medias) ||
+      data.medias.length === 0
+    ) {
+      return NextResponse.json(
+        { error: "No media found in API response" },
+        { status: 404 },
+      );
     }
 
     // Find the best quality MP4 video with both audio & video
@@ -78,7 +88,7 @@ export async function POST(req: Request) {
         (media) =>
           media.videoAvailable &&
           media.audioAvailable &&
-          media.extension === "mp4"
+          media.extension === "mp4",
       )
       .sort((a, b) => {
         const qualityA = parseInt(a.quality?.replace("p", "") ?? "0", 10);
@@ -89,7 +99,7 @@ export async function POST(req: Request) {
     if (!videoMedia) {
       return NextResponse.json(
         { error: "No suitable video format found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -105,13 +115,13 @@ export async function POST(req: Request) {
     if (error instanceof SyntaxError) {
       return NextResponse.json(
         { error: "Invalid JSON response from API" },
-        { status: 502 }
+        { status: 502 },
       );
     }
 
     return NextResponse.json(
       { error: "Failed to process request", details: (error as Error).message },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -136,10 +146,15 @@ export async function GET(req: Request) {
     const response = await fetch(videoUrl, { method: "GET" });
 
     if (!response.ok) {
-      return NextResponse.json({ error: `Failed to fetch video: ${response.statusText}` }, { status: response.status });
+      return NextResponse.json(
+        { error: `Failed to fetch video: ${response.statusText}` },
+        { status: response.status },
+      );
     }
 
-    const sanitizedFilename = title.replace(/[^\w\s-]/gi, "").replace(/\s+/g, "_");
+    const sanitizedFilename = title
+      .replace(/[^\w\s-]/gi, "")
+      .replace(/\s+/g, "_");
 
     return new Response(response.body, {
       headers: {
@@ -151,6 +166,9 @@ export async function GET(req: Request) {
     });
   } catch (error) {
     console.error("Proxy error:", error);
-    return NextResponse.json({ error: "Failed to fetch video" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch video" },
+      { status: 500 },
+    );
   }
 }

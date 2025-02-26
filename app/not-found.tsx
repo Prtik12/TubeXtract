@@ -2,7 +2,6 @@
 
 import FuzzyText from "@/components/ui/FuzzyText/FuzzyText";
 
-
 export default function NotFoundPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-950 text-white">
