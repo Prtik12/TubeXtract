@@ -64,8 +64,3 @@ The project is deployed using **Vercel** for production. To deploy your own inst
 3. Deploy with a single click on Vercel.  
 
 ---
-
-
-## ⭐ Support  
-If you like this project, consider giving it a ⭐ on GitHub!  
-
